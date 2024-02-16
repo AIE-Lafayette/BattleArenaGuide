@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace BattleArenaGuide
 {
+    struct Character
+    {
+        public string Name;
+        public float Health;
+        public float Damage;
+        public float Defense;
+    }
 
     class Game
     {
         //Initialize character stats.
-        string character1Name = "Character 1";
-        float character1Health = 100;
-        float character1Damage = 10;
-        float character1Defense = 5;
-
-        string character2Name = "Character 2";
-        float character2Health = 80;
-        float character2Damage = 15;
-        float character2Defense = 2;
+        Character character1;
+        Character character2;
 
         /// <summary>
         /// Gets the total damage that should be subtracted from a characters health.
@@ -51,9 +51,9 @@ namespace BattleArenaGuide
         /// </summary>
         void UpdateScreen()
         {
-            PrintStats(character1Name, character1Health, character1Damage, character1Defense);
+            PrintStats(character1.Name, character1.Health, character1.Damage, character1.Defense);
             Console.WriteLine();
-            PrintStats(character2Name, character2Health, character2Damage, character2Defense);
+            PrintStats(character2.Name, character2.Health, character2.Damage, character2.Defense);
 
             Console.ReadKey(true);
             Console.Clear();
@@ -61,19 +61,29 @@ namespace BattleArenaGuide
 
         public void Run()
         {
+            character1.Name = "Character1";
+            character1.Health = 100;
+            character1.Damage = 10;
+            character1.Defense = 5;
+
+            character2.Name = "Character2";
+            character2.Health = 80;
+            character2.Damage = 15;
+            character2.Defense = 2;
+
             //Display stats first for context.
             UpdateScreen();
 
             //Fighter 1 turn.
-            Console.WriteLine(character1Name + " atttacks!");
-            character2Health -= CalculateDamage(character1Damage, character2Defense);
+            Console.WriteLine(character1.Name + " atttacks!");
+            character2.Health -= CalculateDamage(character1.Damage, character2.Defense);
 
             UpdateScreen();
 
 
             //Fighter 2 turn.
-            Console.WriteLine(character2Name + " atttacks!");
-            character1Health -= CalculateDamage(character2Damage, character1Defense);
+            Console.WriteLine(character2.Name + " atttacks!");
+            character1.Health -= CalculateDamage(character2.Damage, character1.Defense);
 
             UpdateScreen();
         }
