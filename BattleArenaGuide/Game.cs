@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BattleArenaGuide
@@ -49,6 +50,16 @@ namespace BattleArenaGuide
         }
 
         /// <summary>
+        /// Makes the first monster attack the second.
+        /// </summary>
+        float Fight(Character attacker, ref Character defender)
+        {
+            float damageTaken = CalculateDamage(attacker, defender);
+            defender.Health -= damageTaken;
+            return damageTaken;
+        }
+
+        /// <summary>
         /// Displays the stats given to the screen.
         /// </summary>
         void PrintStats(string name, float health, float damage, float defense)
@@ -89,14 +100,14 @@ namespace BattleArenaGuide
 
             //Fighter 1 turn.
             Console.WriteLine(character1.Name + " atttacks!");
-            character2.Health -= CalculateDamage(character1, character2);
+            Fight(character1, ref character2);
 
             UpdateScreen();
 
 
             //Fighter 2 turn.
             Console.WriteLine(character2.Name + " atttacks!");
-            character1.Health -= CalculateDamage(character2, character1);
+            Fight(character2, ref character1);
 
             UpdateScreen();
         }
