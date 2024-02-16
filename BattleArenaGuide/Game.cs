@@ -36,6 +36,19 @@ namespace BattleArenaGuide
         }
 
         /// <summary>
+        /// Gets the total damage that should be subtracted from a characters health.
+        /// </summary>
+        float CalculateDamage(Character attacker, Character defender)
+        {
+            float damageReceived = attacker.Damage - defender.Defense;
+
+            if (damageReceived < 0)
+                damageReceived = 0;
+
+            return damageReceived;
+        }
+
+        /// <summary>
         /// Displays the stats given to the screen.
         /// </summary>
         void PrintStats(string name, float health, float damage, float defense)
@@ -76,14 +89,14 @@ namespace BattleArenaGuide
 
             //Fighter 1 turn.
             Console.WriteLine(character1.Name + " atttacks!");
-            character2.Health -= CalculateDamage(character1.Damage, character2.Defense);
+            character2.Health -= CalculateDamage(character1, character2);
 
             UpdateScreen();
 
 
             //Fighter 2 turn.
             Console.WriteLine(character2.Name + " atttacks!");
-            character1.Health -= CalculateDamage(character2.Damage, character1.Defense);
+            character1.Health -= CalculateDamage(character2, character1);
 
             UpdateScreen();
         }
